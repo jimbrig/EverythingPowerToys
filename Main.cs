@@ -116,7 +116,7 @@ namespace Community.PowerToys.Run.Plugin.Everything
             _setting = _storage.Load();
             _setting.Getfilters();
             if (_setting.Updates)
-                Task.Run(() => new Update(Assembly.GetExecutingAssembly().GetName().Version, _setting));
+                Task.Run(() => new Update().UpdateAsync(Assembly.GetExecutingAssembly().GetName().Version, _setting));
             _everything = new Everything(_setting);
         }
 
@@ -137,7 +137,7 @@ namespace Community.PowerToys.Run.Plugin.Everything
 
                 _everything.UpdateSettings(_setting);
 
-                if (_contextMenuLoader != null) _contextMenuLoader.Update(_setting);
+                _contextMenuLoader?.Update(_setting);
 
                 Save();
             }
